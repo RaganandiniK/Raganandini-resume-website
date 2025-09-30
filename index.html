@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Koonath Raganandini </title>
+    <meta name="description" content="Portfolio of Koonath Raganandini, a passionate Computer Science undergraduate.">
+    <meta name="keywords" content="Koonath Raganandini, Portfolio, CSE, Hyderabad">
+    <meta name="author" content="Koonath Raganandini">
+
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>PC</text></svg>">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind CSS Config for dark mode -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        // Apply theme before DOM renders to prevent Flash of Unstyled Content (FOUC).
+        try {
+            if (localStorage.theme === 'dark') {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        } catch (_) {}
+    </script>
+
+    <!-- Custom Tailwind Styles -->
+    <style type="text/tailwindcss">
+        @layer base {
+            body {
+                font-family: 'Inter', sans-serif;
+                @apply bg-slate-100 text-slate-800 dark:bg-slate-900 dark:text-slate-200 transition-colors duration-300;
+            }
+        }
+        @layer components {
+            /* Dynamic Background for Home Section */
+            .dynamic-bg {
+                @apply bg-cover bg-center;
+                background-image: linear-gradient(rgba(232, 176, 176, 0.538), rgba(15, 23, 42, 0.7)), url('assets/lm-background.png');
+            }
+            .dark .dynamic-bg {
+                background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(15, 23, 42, 0)), url('assets/dm-background.png');
+            }
+            /* General Section Styling */
+            .page-section {
+                @apply py-20 border-t border-slate-200 dark:border-slate-800;
+            }
+            .section-title { 
+                @apply text-3xl font-bold text-center mb-12 text-slate-900 dark:text-slate-100; 
+            }
+            .section-title::after {
+                content: '';
+                @apply block w-20 h-1 bg-cyan-500 mx-auto mt-2 rounded;
+            }
+            /* Header & Navigation */
+            .page-header {
+                @apply bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm fixed top-0 left-0 right-0 z-50 shadow-sm;
+            }
+            .header-container {
+                @apply max-w-7xl mx-auto px-6 py-4 flex justify-between items-center;
+            }
+            .logo {
+                @apply text-2xl font-bold text-slate-900 dark:text-white;
+            }
+            .nav-link { 
+                @apply text-slate-600 dark:text-slate-300 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors duration-300 font-medium relative py-2; 
+            }
+            .nav-link.active { 
+                @apply text-cyan-500 dark:text-cyan-400; 
+            }
+            .nav-link::after {
+                content: '';
+                @apply absolute bottom-0 left-0 h-0.5 bg-cyan-500 transition-all duration-300;
+                width: 0;
+            }
+            .nav-link:hover::after, .nav-link.active::after {
+                width: 100%;
+            }
+            .mobile-menu {
+                @apply bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800;
+            }
+            .mobile-nav-link {
+                @apply block py-3 px-6 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800;
+            }
+            .theme-toggle-btn {
+                @apply p-2 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors;
+            }
+            /* Buttons */
+            .btn { 
+                @apply inline-block bg-cyan-600 text-white font-semibold py-2 px-6 rounded-lg hover:bg-cyan-700 transition-all duration-300 shadow-lg hover:shadow-cyan-500/50 dark:hover:shadow-none transform hover:-translate-y-1; 
+            }
+            .btn-outline { 
+                @apply inline-block bg-transparent border-2 border-cyan-500 text-cyan-500 dark:text-cyan-400 font-semibold py-2 px-6 rounded-lg hover:bg-cyan-500 hover:text-white dark:hover:text-slate-900 transition-all duration-300; 
+            }
+            /* Card */
+            .card { 
+                @apply bg-white dark:bg-slate-800 p-6 rounded-lg shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col hover:shadow-cyan-500/20 dark:hover:shadow-none; 
+            }
+            /* Timeline */
+            .timeline-item::before { 
+                content: ''; 
+                @apply absolute left-[-2px] top-5 w-1 h-full bg-slate-300 dark:bg-slate-700; 
+            }
+            .timeline-item:last-child::before { 
+                @apply hidden; 
+            }
+            .timeline-dot { 
+                @apply absolute -left-[9px] top-5 w-5 h-5 bg-cyan-500 rounded-full border-4 border-slate-100 dark:border-slate-900; 
+            }
+            /* Typing Effect */
+            .typed-cursor { 
+                @apply text-slate-600 dark:text-slate-400; 
+            }
+            /* Certifications & Achievements */
+            .cert-achieve-item {
+                @apply flex items-center gap-3 p-3 bg-slate-100 dark:bg-slate-800 rounded-lg dark:border dark:border-slate-700;
+            }
+            .cert-achieve-item svg {
+                @apply text-cyan-500 flex-shrink-0;
+            }
+            /* Contact Form */
+            .form-input {
+                @apply w-full p-3 rounded-lg bg-white dark:bg-slate-700 dark:text-slate-200 dark:placeholder-slate-400 border-2 border-transparent focus:border-cyan-500 focus:outline-none transition-colors;
+            }
+            /* Fix for browser autofill styles in dark mode */
+            .dark .form-input:-webkit-autofill,
+            .dark .form-input:-webkit-autofill:hover, 
+            .dark .form-input:-webkit-autofill:focus, 
+            .dark .form-input:-webkit-autofill:active {
+                -webkit-box-shadow: 0 0 0 30px #334155 inset !important; /* Tailwind's slate-700 */
+                -webkit-text-fill-color: #e2e8f0 !important; /* Tailwind's slate-200 */
+            }
+            .form-input.invalid {
+                @apply border-red-500;
+            }
+            .error-text {
+                @apply text-red-500 text-sm mt-1;
+            }
+            .popup {
+                 @apply fixed bottom-10 left-1/2 -translate-x-1/2 text-white py-3 px-6 rounded-lg shadow-lg z-[100] transition-opacity duration-300;
+            }
+            .success-popup {
+                @apply bg-green-500;
+            }
+            .error-popup {
+                @apply bg-red-500;
+            }
+            /* Footer */
+            .social-link {
+                @apply text-slate-500 dark:text-slate-400 hover:text-cyan-500 dark:hover:text-cyan-400 transition-all duration-300 hover:scale-125;
+            }
+            /* Scroll reveal animation */
+            .reveal {
+                position: relative;
+                transform: translateY(100px);
+                opacity: 0;
+                transition: 1s all ease;
+            }
+            .reveal.active {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <!-- Header & Navigation -->
+    <header class="page-header">
+        <div class="header-container">
+            <a href="#" class="logo">Koonath Raganandini<span class="text-cyan-500 dark:text-cyan-400">.</span></a>
+            <nav id="main-nav" class="hidden md:flex items-center space-x-8 relative">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#experience" class="nav-link">Experience</a>
+                <a href="#education" class="nav-link">Education</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#contact" class="nav-link">Contact</a>
+                <a href="assets/Resume.pdf" target="_blank" class="btn-outline text-sm ml-4">Resume</a>
+                <button class="theme-toggle-btn" aria-label="Toggle dark/light theme">
+                    <i class="theme-toggle-dark-icon" data-feather="sun"></i>
+                    <i class="theme-toggle-light-icon hidden" data-feather="moon"></i>
+                </button>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden text-slate-800 dark:text-white" aria-expanded="false" aria-controls="mobile-menu">
+                <span id="mobile-menu-icon-container">
+                    <i data-feather="menu"></i>
+                </span>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu hidden md:hidden">
+            <a href="#home" class="mobile-nav-link">Home</a>
+            <a href="#about" class="mobile-nav-link">About</a>
+            <a href="#skills" class="mobile-nav-link">Skills</a>
+            <a href="#experience" class="mobile-nav-link">Experience</a>
+            <a href="#education" class="mobile-nav-link">Education</a>
+            <a href="#projects" class="mobile-nav-link">Projects</a>
+            <a href="#contact" class="mobile-nav-link">Contact</a>
+            <a href="assets/Resume.pdf" target="_blank" class="mobile-nav-link text-cyan-500 dark:text-cyan-400">Resume</a>
+            <div class="flex justify-center items-center py-3 border-t border-slate-200 dark:border-slate-800">
+                <button class="theme-toggle-btn" aria-label="Toggle dark/light theme">
+                    <i class="theme-toggle-dark-icon" data-feather="sun"></i>
+                    <i class="theme-toggle-light-icon hidden" data-feather="moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Home Section -->
+        <section id="home" class="dynamic-bg min-h-screen flex items-center justify-center text-center pt-20">
+            <div class="container mx-auto px-6">
+                <p class="text-lg text-cyan-300 dark:text-cyan-400 mb-2 reveal">Hi, my name is</p>
+                <h1 class="text-4xl md:text-7xl font-bold text-slate-100 leading-tight mb-2 reveal">Koonath Raganandini<span class="text-cyan-500 dark:text-cyan-400">.</span></h1>
+                <p class="max-w-3xl mx-auto text-slate-300 mb-10 reveal">
+                    I'm a Computer Science undergraduate, passionate about creating intelligent solutions and robust software.
+                </p>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 reveal">
+                    <a href="#contact" class="btn text-lg w-full sm:w-auto">Get In Touch</a>
+                    <a href="assets/Resume.pdf" target="_blank" class="btn-outline text-lg w-full sm:w-auto">Download Resume</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="page-section">
+            <div class="max-w-7xl mx-auto px-6">
+                <h2 class="section-title reveal">About Me</h2>
+                <div class="flex flex-col md:flex-row items-center gap-12">
+                    <div class="md:w-1/3 text-center reveal">
+                        <img src="assets/profile.png" alt="A profile picture placeholder for Koonath Raganandini" class="rounded-full w-64 h-64 mx-auto shadow-xl border-4 border-white dark:border-slate-800" onerror="this.onerror=null;this.src='https://placehold.co/256x256/e2e8f0/334155?text=Profile';">
+                    </div>
+                    <div class="md:w-2/3 text-lg text-slate-600 dark:text-slate-300 space-y-4 reveal">
+                        <p>I am pursuing my Bachelor’s degree in Computer Science and Engineering, with a strong interest in Python development and web technologies. I enjoy creating practical solutions through coding, and I have built projects such as an Employee Management System using SQLite. My goal is to become a skilled software developer and contribute to impactful tech solutions.</p>
+                        <p>I am dedicated to writing clean, efficient code and am always eager to learn new technologies.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="page-section bg-slate-50 dark:bg-slate-900/50">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title reveal">Technical Skills</h2>
+                <div class="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-3 gap-8 text-center">
+                    <div class="reveal"><div class="card h-full">
+                        <i data-feather="box" class="w-12 h-12 mx-auto mb-3 text-cyan-500"></i>
+                        <h3 class="font-semibold text-slate-900 dark:text-white text-lg">Languages</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">Java, Python, C</p>
+                    </div></div>
+                    <div class="reveal"><div class="card h-full">
+                        <i data-feather="code" class="w-12 h-12 mx-auto mb-3 text-cyan-500"></i>
+                        <h3 class="font-semibold text-slate-900 dark:text-white text-lg">Web & Databases</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">HTML, CSS</p>
+                    </div></div>
+                    
+                </div>
+            </div>
+        </section>
+
+        
+        <!-- Education Section -->
+        <section id="education" class="page-section bg-slate-50 dark:bg-slate-900/50">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title reveal">Education</h2>
+                <div class="max-w-3xl mx-auto relative pl-8 grid gap-10">
+                    <!-- Education Item 1 -->
+                    <div class="timeline-item relative">
+                        <div class="timeline-dot"></div>
+                        <div class="ml-4 card h-full">
+                            <h3 class="text-xl font-semibold text-slate-900 dark:text-white">B.Tech CSE</h3>
+                            <p class="text-cyan-500 dark:text-cyan-400">Sree Dattha Institute of Engineering and Science| 2022–2026</p>
+                            <p class="text-sm text-slate-500 dark:text-slate-400 mt-2">Hyderabad, India</p>
+                            <p class="text-sm font-semibold text-slate-600 dark:text-slate-300 mt-1">CGPA: 8.42</p>
+                        </div>
+                    </div>
+                    <!-- Education Item 2 -->
+                    <div class="timeline-item relative">
+                        <div class="timeline-dot"></div>
+                        <div class="ml-4 card h-full">
+                            <h3 class="text-xl font-semibold text-slate-900 dark:text-white">Intermediate (MPC)</h3>
+                            <p class="text-cyan-500 dark:text-cyan-400">Nano Jr. College</p>
+                            <p class="text-sm text-slate-500 dark:text-slate-400 mt-2">Hyderabad, India</p>
+                            <p class="text-sm font-semibold text-slate-600 dark:text-slate-300 mt-1">Percentage: 85.1%</p>
+                        </div>
+                    </div>
+                    <!-- Education Item 3 -->
+                    <div class="timeline-item relative">
+                        <div class="timeline-dot"></div>
+                        <div class="ml-4 card h-full">
+                            <h3 class="text-xl font-semibold text-slate-900 dark:text-white">SSC</h3>
+                            <p class="text-cyan-500 dark:text-cyan-400">St.Ann's High School</p>
+                            <p class="text-sm text-slate-500 dark:text-slate-400 mt-2">Hyderabad, India</p>
+                            <p class="text-sm font-semibold text-slate-600 dark:text-slate-300 mt-1">GPA: 10.0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="page-section">
+            <div class="max-w-7xl mx-auto px-6">
+                <h2 class="section-title reveal">Projects</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Project Card 1 -->
+                    <div class="reveal"><div class="card h-full">
+                        <div class="flex justify-between items-start mb-4">
+                            <i data-feather="trending-up" class="w-10 h-10 text-cyan-500"></i>
+                             <a href="https://github.com/RaganandiniK/Employee-Management-System" target="_blank" class="social-link"><i data-feather="github"></i></a>
+                        </div>
+                        <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-2 flex-grow">Employee Management System</h3>
+                        <div class="mt-auto pt-4 flex justify-start gap-x-4 gap-y-2 text-xs text-slate-500 dark:text-slate-400 font-mono flex-wrap">
+                            <span>Python</span>
+                            <span>SQLite</span>
+                            <span>Tkinter</span>
+                        </div>
+                    </div></div>
+                    
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Contact Section -->
+        <section id="contact" class="page-section">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="section-title reveal">Get In Touch</h2>
+                <p class="max-w-2xl mx-auto text-lg text-slate-600 dark:text-slate-400 mb-8 reveal">
+                    My inbox is always open, feel free to reach out!
+                </p>
+                <div class="max-w-xl mx-auto reveal">
+                    <form id="contact-form" class="space-y-4 text-left" novalidate>
+                        <div>
+                            <input type="text" id="name" name="name" placeholder="Your Name" required class="form-input">
+                            <p id="name-error" class="error-text"></p>
+                        </div>
+                        <div>
+                            <input type="email" id="email" name="email" placeholder="Your Email" required class="form-input">
+                            <p id="email-error" class="error-text"></p>
+                        </div>
+                        <div>
+                            <textarea id="message" name="message" placeholder="Your Message" rows="5" required class="form-input"></textarea>
+                            <p id="message-error" class="error-text"></p>
+                        </div>
+                        <button type="submit" class="btn w-full">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Popups (moved outside of main for fixed positioning) -->
+    <div id="success-message" class="popup success-popup opacity-0 hidden">
+        Form submitted successfully!
+    </div>
+    <div id="error-message" class="popup error-popup opacity-0 hidden">
+        Oops! Something went wrong.
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
+        <div class="container mx-auto px-6 py-8">
+            <div class="text-center">
+                <div class="flex items-center justify-center space-x-6 mb-4">
+                    <a href="https://github.com/RaganandiniK" target="_blank" class="social-link"><i data-feather="github" class="w-6 h-6"></i></a>
+                    <a href="https://www.linkedin.com/in/raganandini-k-972166357/" target="_blank" class="social-link"><i data-feather="linkedin" class="w-6 h-6"></i></a>
+                    <a href="mailto:koonathraganandini@gmail.com" class="social-link"><i data-feather="mail" class="w-6 h-6"></i></a>
+                </div>
+                <p class="text-slate-500 dark:text-slate-400">&copy; <span id="copyright-year">2025</span> Koonath Raganandini. Designed & Built with Passion.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- SCROLL TO TOP BUTTON -->
+    <button id="to-top-button" class="hidden fixed bottom-5 right-5 bg-cyan-600/50 text-white p-3 rounded-full hover:bg-cyan-600 transition-all duration-300 z-50">
+      <i data-feather="arrow-up" class="w-6 h-6"></i>
+    </button>
+
+    <!-- JAVASCRIPT -->
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Replaces the data-feather attributes with SVG icons
+            feather.replace();
+
+            // --- THEME TOGGLE FIX & ACCESSIBILITY ---
+            const themeToggleBtns = document.querySelectorAll('.theme-toggle-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenuIconContainer = document.getElementById('mobile-menu-icon-container');
+
+            const updateThemeIcons = () => {
+                const sunIcons = document.querySelectorAll('.theme-toggle-dark-icon');
+                const moonIcons = document.querySelectorAll('.theme-toggle-light-icon');
+                const isDarkMode = document.documentElement.classList.contains('dark');
+                
+                sunIcons.forEach(icon => isDarkMode ? icon.classList.add('hidden') : icon.classList.remove('hidden'));
+                moonIcons.forEach(icon => isDarkMode ? icon.classList.remove('hidden') : icon.classList.add('hidden'));
+            };
+            
+            // Initial check for theme
+            updateThemeIcons();
+
+            const setMobileMenuIcon = (iconName) => {
+                if (mobileMenuIconContainer) {
+                    mobileMenuIconContainer.innerHTML = `<i data-feather="${iconName}"></i>`;
+                    feather.replace();
+                }
+            };
+
+            themeToggleBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.documentElement.classList.toggle('dark');
+                    const isDark = document.documentElement.classList.contains('dark');
+                    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                    updateThemeIcons();
+                    // If the theme toggle inside the mobile menu is clicked, close the menu
+                    if (btn.closest('#mobile-menu')) {
+                        mobileMenu.classList.add('hidden');
+                        mobileMenuButton.setAttribute('aria-expanded', 'false');
+                        setMobileMenuIcon('menu');
+                    }
+                });
+            });
+
+            // --- MOBILE MENU ---
+            mobileMenuButton.addEventListener('click', () => {
+                const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+                mobileMenu.classList.toggle('hidden');
+                mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+
+                // Toggle menu and close icons
+                setMobileMenuIcon(isExpanded ? 'menu' : 'x');
+            });
+
+            // Hide mobile menu when a link is clicked
+            document.querySelectorAll('#mobile-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenuButton.setAttribute('aria-expanded', 'false');
+                    setMobileMenuIcon('menu'); // Set icon back to menu
+                });
+            });
+
+            // --- SCROLL REVEAL ---
+            const reveal = () => {
+                document.querySelectorAll(".reveal").forEach(el => {
+                    const windowHeight = window.innerHeight;
+                    const elementTop = el.getBoundingClientRect().top;
+                    const elementVisible = 100;
+                    if (elementTop < windowHeight - elementVisible) {
+                        el.classList.add("active");
+                    }
+                });
+            }
+            window.addEventListener("scroll", reveal);
+            reveal(); // Initial check on page load
+
+            // --- SCROLL TO TOP ---
+            const toTopButton = document.getElementById('to-top-button');
+            window.onscroll = () => {
+                if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                    toTopButton.classList.remove('hidden');
+                } else {
+                    toTopButton.classList.add('hidden');
+                }
+            };
+            toTopButton.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // --- TYPING EFFECT ---
+            if (typeof Typed !== 'undefined') {
+                const typed = new Typed('#typing-effect', {
+                    strings: ['Passionate CS Undergraduate', 'AI &amp; ML Enthusiast'],
+                    typeSpeed: 50,
+                    backSpeed: 25,
+                    backDelay: 1500,
+                    loop: true
+                });
+            }
+
+            // --- ACTIVE NAV LINK HIGHLIGHTING ---
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('#main-nav a.nav-link');
+
+            const onScroll = () => {
+                const scrollY = window.pageYOffset;
+                let currentSectionId = '';
+
+                sections.forEach(current => {
+                    const sectionHeight = current.offsetHeight;
+                    const sectionTop = current.offsetTop - 150; // Offset for the fixed header
+                    if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                        currentSectionId = current.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    // Check if the link's href contains the current section's ID
+                    if (link.getAttribute('href').substring(1) === currentSectionId) {
+                        link.classList.add('active');
+                    }
+                });
+            };
+
+            window.addEventListener('scroll', onScroll);
+            onScroll(); // Initial check on load
+
+            // --- DYNAMIC COPYRIGHT YEAR ---
+            document.getElementById('copyright-year').textContent = new Date().getFullYear();
+
+            // --- CONTACT FORM SUBMISSION ---
+            const contactForm = document.getElementById('contact-form');
+            const successMessage = document.getElementById('success-message');
+            const errorMessage = document.getElementById('error-message');
+
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const messageInput = document.getElementById('message');
+
+            const nameError = document.getElementById('name-error');
+            const emailError = document.getElementById('email-error');
+            const messageError = document.getElementById('message-error');
+
+            const showPopup = (element) => {
+                element.classList.remove('hidden');
+                setTimeout(() => element.classList.remove('opacity-0'), 10);
+                setTimeout(() => {
+                    element.classList.add('opacity-0');
+                    setTimeout(() => element.classList.add('hidden'), 300);
+                }, 3000);
+            };
+
+            const validateEmailFormat = (email) => {
+                const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                return re.test(String(email).toLowerCase());
+            }
+
+            // Individual validation functions
+            const validateName = () => {
+                nameError.textContent = '';
+                nameInput.classList.remove('invalid');
+                if (nameInput.value.trim() === '') {
+                    nameError.textContent = 'Please fill out this field.';
+                    nameInput.classList.add('invalid');
+                    return false;
+                }
+                return true;
+            };
+
+            const validateEmail = () => {
+                emailError.textContent = '';
+                emailInput.classList.remove('invalid');
+                if (emailInput.value.trim() === '') {
+                    emailError.textContent = 'Please fill out this field.';
+                    emailInput.classList.add('invalid');
+                    return false;
+                } else if (!validateEmailFormat(emailInput.value.trim())) {
+                    emailError.textContent = 'Please enter a valid email address.';
+                    emailInput.classList.add('invalid');
+                    return false;
+                }
+                return true;
+            };
+
+            const validateMessage = () => {
+                messageError.textContent = '';
+                messageInput.classList.remove('invalid');
+                if (messageInput.value.trim() === '') {
+                    messageError.textContent = 'Please fill out this field.';
+                    messageInput.classList.add('invalid');
+                    return false;
+                }
+                return true;
+            };
+
+
+            // Main validation function for the submit button
+            const validateForm = () => {
+                const isNameValid = validateName();
+                const isEmailValid = validateEmail();
+                const isMessageValid = validateMessage();
+                return isNameValid && isEmailValid && isMessageValid;
+            };
+            
+            // Handle "Enter" key press
+            const handleEnterKey = (event) => {
+                if (event.key === 'Enter' && !event.shiftKey) { // Allow Shift+Enter for new lines in textarea
+                    event.preventDefault();
+                    const currentField = event.target;
+
+                    switch (currentField.id) {
+                        case 'name':
+                            if (validateName()) {
+                                emailInput.focus();
+                            }
+                            break;
+                        case 'email':
+                            if (validateEmail()) {
+                                messageInput.focus();
+                            }
+                            break;
+                        case 'message':
+                            // Trigger form submission by dispatching a submit event
+                            contactForm.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+                            break;
+                    }
+                }
+            };
+
+            nameInput.addEventListener('keydown', handleEnterKey);
+            emailInput.addEventListener('keydown', handleEnterKey);
+            messageInput.addEventListener('keydown', handleEnterKey);
+
+
+            contactForm.addEventListener('submit', async function(event) {
+                event.preventDefault();
+                if (!validateForm()) {
+                    return;
+                }
+                
+                const form = event.target;
+                const data = new FormData(form);
+                const action = "https://formspree.io/f/manbrkjk";
+                
+                try {
+                    const response = await fetch(action, {
+                        method: 'POST',
+                        body: data,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+
+                    if (response.ok) {
+                        showPopup(successMessage);
+                        form.reset();
+                         // Clear any lingering error styles
+                        nameInput.classList.remove('invalid');
+                        emailInput.classList.remove('invalid');
+                        messageInput.classList.remove('invalid');
+                    } else {
+                        showPopup(errorMessage);
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    showPopup(errorMessage);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
